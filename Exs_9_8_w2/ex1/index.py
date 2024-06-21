@@ -1,5 +1,4 @@
 import is_number
-import node
 
 
 def calc_max_in_window(head, tail, lst_data):
@@ -12,7 +11,6 @@ def move_window(window_size, lst_data):
 
     # HACK: loop until we not enough data to find
     while current_position + window_size - 1 < len(lst_data):
-
         lst_result.append(
             calc_max_in_window(
                 current_position, current_position + window_size, lst_data=lst_data
@@ -29,13 +27,13 @@ def input_data():
     # NOTE: verified input
     dimension_ll = input("Enter Dimension LL: ")
 
-    if is_number.calc(dimension_ll, is_int=True) == False:
+    if is_number.calc(dimension_ll, is_int=True) is False:
         print("Dimension must int")
         return
 
     window_size = input("Enter Window Size: ")
 
-    if is_number.calc(window_size, is_int=True) == False:
+    if is_number.calc(window_size, is_int=True) is False:
         print("window size must int")
         return
 
@@ -47,7 +45,7 @@ def input_data():
     while countdown != 0:
         temp = input("Enter Data: ")
 
-        if is_number.calc(temp) == False:
+        if is_number.calc(temp) is False:
             print("Data must float or int")
             continue
 

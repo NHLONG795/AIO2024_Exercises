@@ -27,31 +27,36 @@ def calc_levenshtein_distance_at_location(
 
 
 def levenshtein_distance(source_str="", target_str=""):
-
     source_str = "#" + source_str.strip()
     target_str = "#" + target_str.strip()
 
     chars_source_list = list(source_str)
     chars_target_list = list(target_str)
 
+    # HACK: instance target string have same one target
+    # its mean i must calc how many chars same in that and
+    # add it to result
+    len_target_list = len(set(chars_target_list))
+    same_chars = abs(len(chars_target_list) - len_target_list)
+    print("temp", same_chars)
+
     # HACK: crate initial matrix_levenshtein [[0, 1, 2, 3], [1], [2]]
     matrix_levenshtein = [[count] for count, _ in enumerate(chars_source_list)]
 
-    matrix_levenshtein[0] = [count for count, _ in enumerate(chars_target_list)]
+    matrix_levenshtein[0] = [count for count,
+                             _ in enumerate(chars_target_list)]
 
     # HACK: count_down_char_source is ROW LOCATION
     #       count_down_char_target is COLUMN LOCATION
 
     # NOTE: row
     for count_down_char_source, char_source in enumerate(chars_source_list):
-
         # NOTE: refuse location 0
         if count_down_char_source == 0:
             continue
 
         # NOTE: column
         for count_down_char_target, char_target in enumerate(chars_target_list):
-
             if count_down_char_target == 0:
                 continue
 
@@ -65,11 +70,14 @@ def levenshtein_distance(source_str="", target_str=""):
                 )
             )
 
-    print(f'Minimum cost is {matrix_levenshtein[-1][-1]}')
+    print(f"Minimum cost is {matrix_levenshtein[-1][-1] + same_chars}")
 
 
 def input_data():
-    string1 = input('Enter string 1:')
-    string2 = input('Enter string 2:')
-    levenshtein_distance("yu", "you")
+    string1 = input("Enter source:")
+    string2 = input("Enter target:")
+    # levenshtein_distance(source_str="hollla", target_str="hello")
     levenshtein_distance(string1, string2)
+
+
+input_data()
